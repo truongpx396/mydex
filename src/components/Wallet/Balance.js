@@ -7,6 +7,8 @@ import {
   tokenSelector,
   accountSelector,
   web3Selector,
+} from '../../store/selectors/base'
+import {
   etherBalanceSelector,
   tokenBalanceSelector,
   exchangeEtherBalanceSelector,
@@ -16,7 +18,7 @@ import {
   etherWithdrawAmountSelector,
   tokenDepositAmountSelector,
   tokenWithdrawAmountSelector,
-} from '../../store/selectors'
+} from '../../store/selectors/wallet'
 import BalanceForm from './BalanceForm'
 
 const Balance = (props) => {
@@ -31,7 +33,7 @@ const Balance = (props) => {
   return (
     <div className="card bg-dark text-white">
       <div className="card-header">
-        Balance {props.showForm ? null : <Spinner />}
+        Wallet {props.showForm ? null : <Spinner />}
       </div>
       <div className="card-body">
         <BalanceForm {...props} />

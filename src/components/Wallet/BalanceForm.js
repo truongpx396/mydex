@@ -110,7 +110,12 @@ const TabContent = ({
           </div>
         </div>
         <div className="col-12 col-sm-auto pl-sm-0">
-          <button type="submit" className="btn btn-primary btn-block btn-sm">
+          <button
+            type="submit"
+            className={`btn ${
+              isDeposite ? 'btn-primary' : 'btn-info'
+            } btn-block btn-sm`}
+          >
             {isDeposite ? 'Deposit' : 'Withdraw'}
           </button>
         </div>
@@ -160,7 +165,12 @@ const TabContent = ({
           </div>
         </div>
         <div className="col-12 col-sm-auto pl-sm-0">
-          <button type="submit" className="btn btn-primary btn-block btn-sm">
+          <button
+            type="submit"
+            className={`btn ${
+              isDeposite ? 'btn-primary' : 'btn-info'
+            } btn-block btn-sm`}
+          >
             {isDeposite ? 'Deposit' : 'Withdraw'}
           </button>
         </div>

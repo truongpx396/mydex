@@ -5,26 +5,35 @@ import Spinner from './Spinner'
 import { chartOptions } from './PriceChart.config'
 import {
   priceChartLoadedSelector,
-  priceChartSelector
-} from '../store/selectors'
+  priceChartSelector,
+} from '../store/selectors/chart'
 
 const priceSymbol = (lastPriceChange) => {
   let output
-  if(lastPriceChange === '+') {
+  if (lastPriceChange === '+') {
     output = <span className="text-success">&#9650;</span> // Green up tiangle
   } else {
     output = <span className="text-danger">&#9660;</span> // Red down triangle
   }
-  return(output)
+  return output
 }
 
 const showPriceChart = (priceChart) => {
-  return(
+  return (
     <div className="price-chart">
       <div className="price">
-        <h4>DAPP/ETH &nbsp; {priceSymbol(priceChart.lastPriceChange)} &nbsp; {priceChart.lastPrice}</h4>
+        <h4>
+          DAPP/ETH &nbsp; {priceSymbol(priceChart.lastPriceChange)} &nbsp;{' '}
+          {priceChart.lastPrice}
+        </h4>
       </div>
-      <Chart options={chartOptions} series={priceChart.series} type='candlestick' width='100%' height='100%' />
+      <Chart
+        options={chartOptions}
+        series={priceChart.series}
+        type="candlestick"
+        width="100%"
+        height="100%"
+      />
     </div>
   )
 }
@@ -33,11 +42,13 @@ class PriceChart extends Component {
   render() {
     return (
       <div className="card bg-dark text-white">
-        <div className="card-header">
-          Price Chart
-        </div>
+        <div className="card-header">Price Chart</div>
         <div className="card-body">
-          {this.props.priceChartLoaded ? showPriceChart(this.props.priceChart) : <Spinner />}
+          {this.props.priceChartLoaded ? (
+            showPriceChart(this.props.priceChart)
+          ) : (
+            <Spinner />
+          )}
         </div>
       </div>
     )
@@ -45,7 +56,6 @@ class PriceChart extends Component {
 }
 
 function mapStateToProps(state) {
-
   return {
     priceChartLoaded: priceChartLoadedSelector(state),
     priceChart: priceChartSelector(state),

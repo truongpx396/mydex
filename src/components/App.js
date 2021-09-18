@@ -7,9 +7,9 @@ import {
   loadWeb3,
   loadAccount,
   loadToken,
-  loadExchange
+  loadExchange,
 } from '../store/interactions'
-import { contractsLoadedSelector } from '../store/selectors'
+import { contractsLoadedSelector } from '../store/selectors/base'
 
 class App extends Component {
   componentWillMount() {
@@ -21,13 +21,17 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     await loadAccount(web3, dispatch)
     const token = await loadToken(web3, networkId, dispatch)
-    if(!token) {
-      window.alert('Token smart contract not detected on the current network. Please select another network with Metamask.')
+    if (!token) {
+      window.alert(
+        'Token smart contract not detected on the current network. Please select another network with Metamask.',
+      )
       return
     }
     const exchange = await loadExchange(web3, networkId, dispatch)
-    if(!exchange) {
-      window.alert('Exchange smart contract not detected on the current network. Please select another network with Metamask.')
+    if (!exchange) {
+      window.alert(
+        'Exchange smart contract not detected on the current network. Please select another network with Metamask.',
+      )
       return
     }
   }
@@ -36,15 +40,19 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        { this.props.contractsLoaded ? <Content /> : <div className="content"></div> }
+        {this.props.contractsLoaded ? (
+          <Content />
+        ) : (
+          <div className="content"></div>
+        )}
       </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    contractsLoaded: contractsLoadedSelector(state)
+    contractsLoaded: contractsLoadedSelector(state),
   }
 }
 

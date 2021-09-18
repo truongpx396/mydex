@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {  tokenSelector,
+import {
+  tokenSelector,
   accountSelector,
-  web3Selector,exchangeSelector } from '../store/selectors'
+  web3Selector,
+  exchangeSelector,
+} from '../store/selectors/base'
 import { loadAllOrders, subscribeToEvents } from '../store/interactions'
 import OrderBook from './OrderBook'
 import Trades from './Trades'
 import MyTransactions from './MyTransactions'
 import PriceChart from './PriceChart'
-import Balance from './Balances/Balance'
-import NewOrder from './NewOrder'
+import Balance from './Wallet/Balance'
+import NewOrder from './NewOrder/NewOrder'
 
 class Content extends Component {
   componentWillMount() {
@@ -17,9 +20,9 @@ class Content extends Component {
   }
 
   async loadBlockchainData(props) {
-    const { dispatch, web3,token,exchange,account } = props
+    const { dispatch, web3, token, exchange, account } = props
     await loadAllOrders(exchange, dispatch)
-    await subscribeToEvents(web3,exchange,token,account, dispatch)
+    await subscribeToEvents(web3, exchange, token, account, dispatch)
   }
 
   render() {
@@ -45,7 +48,7 @@ function mapStateToProps(state) {
     account: accountSelector(state),
     token: tokenSelector(state),
     web3: web3Selector(state),
-    exchange: exchangeSelector(state)
+    exchange: exchangeSelector(state),
   }
 }
 
