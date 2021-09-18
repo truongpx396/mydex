@@ -13,7 +13,7 @@ import {
   orderCancellingSelector,
 } from '../store/selectors/orderbook'
 
-import { cancelOrder } from '../store/interactions'
+import { cancelOrder } from '../store/actions/orderbook'
 
 const showMyFilledOrders = (props) => {
   const { myFilledOrders } = props

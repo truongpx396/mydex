@@ -8,7 +8,7 @@ import {
   loadAccount,
   loadToken,
   loadExchange,
-} from '../store/interactions'
+} from '../store/actions/base'
 import { contractsLoadedSelector } from '../store/selectors/base'
 
 class App extends Component {

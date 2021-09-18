@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Spinner from '../Spinner'
-import { loadBalances } from '../../store/interactions'
+import { loadBalances } from '../../store/actions/wallet'
 import {
   exchangeSelector,
   tokenSelector,

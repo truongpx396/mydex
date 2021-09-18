@@ -5,14 +5,14 @@ import {
   depositToken,
   withdrawEther,
   withdrawToken,
-} from '../../store/interactions'
+} from '../../store/actions/wallet'
 
 import {
   etherDepositAmountChanged,
   etherWithdrawAmountChanged,
   tokenDepositAmountChanged,
   tokenWithdrawAmountChanged,
-} from '../../store/actions'
+} from '../../store/actions/wallet'
 
 const BalanceForm = (props) => {
   return (

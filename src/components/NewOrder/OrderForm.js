@@ -5,8 +5,9 @@ import {
   buyOrderPriceChanged,
   sellOrderAmountChanged,
   sellOrderPriceChanged,
-} from '../../store/actions'
-import { makeBuyOrder, makeSellOrder } from '../../store/interactions'
+  makeBuyOrder,
+  makeSellOrder,
+} from '../../store/actions/new_order'
 
 const OrderForm = (props) => {
   return (

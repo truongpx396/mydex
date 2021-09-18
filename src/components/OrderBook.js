@@ -8,7 +8,7 @@ import {
   orderBookLoadedSelector,
   orderFillingSelector,
 } from '../store/selectors/orderbook'
-import { fillOrder } from '../store/interactions'
+import { fillOrder } from '../store/actions/orderbook'
 
 const renderOrder = (order, props) => {
   const { dispatch, exchange, account } = props

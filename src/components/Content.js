@@ -6,7 +6,8 @@ import {
   web3Selector,
   exchangeSelector,
 } from '../store/selectors/base'
-import { loadAllOrders, subscribeToEvents } from '../store/interactions'
+import { loadAllOrders } from '../store/actions/orderbook'
+import { subscribeToEvents } from '../store/events'
 import OrderBook from './OrderBook'
 import Trades from './Trades'
 import MyTransactions from './MyTransactions'
