@@ -8,7 +8,7 @@ import OrderBook from './OrderBook'
 import Trades from './Trades'
 import MyTransactions from './MyTransactions'
 import PriceChart from './PriceChart'
-import Balance from './Balance'
+import Balance from './Balances/Balance'
 import NewOrder from './NewOrder'
 
 class Content extends Component {

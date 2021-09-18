@@ -103,6 +103,7 @@ export const subscribeToEvents = async (web3,exchange,token,account, dispatch) =
   })
 
   exchange.events.Withdraw({}, (error, event) => {
+    loadBalances(dispatch, web3, exchange, token, account) 
     dispatch(balancesLoaded())
   })
 
