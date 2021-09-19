@@ -36,7 +36,6 @@ const OrderTab = ({
 }) => {
   return (
     <>
-      {console.log('BuyAmount: ', buyOrder.amount)}
       <form
         onSubmit={(event) => {
           event.preventDefault()
@@ -73,7 +72,7 @@ const OrderTab = ({
               </span>
             </div>
           </div>
-          <div className="input-group">
+          <div className="input-group input-group-sm mb-3">
             <input
               type="text"
               className="form-control form-control-sm bg-dark text-white"
@@ -94,6 +93,11 @@ const OrderTab = ({
               }
               required
             />
+            <div className="input-group-append">
+              <span className="input-group-text" id="inputGroup-sizing-sm">
+                {'ETH'}
+              </span>
+            </div>
           </div>
         </div>
         <button

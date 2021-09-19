@@ -1,7 +1,14 @@
 import { get } from 'lodash'
 import { createSelector } from 'reselect'
 import moment from 'moment'
-import { ETHER_ADDRESS, GREEN, RED, ether, tokens } from '../../helpers'
+import {
+  ETHER_ADDRESS,
+  GREEN,
+  RED,
+  ether,
+  tokens,
+  roundDecimals,
+} from '../../helpers'
 
 // TODO: Move me to helpers file
 
@@ -42,14 +49,16 @@ export const decorateOrder = (order) => {
   }
 
   // Calculate token price to 5 decimal places
-  const precision = 100000
   let tokenPrice = etherAmount / tokenAmount
-  tokenPrice = Math.round(tokenPrice * precision) / precision
+  tokenPrice = roundDecimals(tokenPrice, 5)
+
+  etherAmount = roundDecimals(ether(etherAmount), 5)
+  tokenAmount = roundDecimals(tokens(tokenAmount), 5)
 
   return {
     ...order,
-    etherAmount: ether(etherAmount),
-    tokenAmount: tokens(tokenAmount),
+    etherAmount,
+    tokenAmount,
     tokenPrice,
     formattedTimestamp: moment.unix(order.timestamp).format('h:mm:ss a M/D'),
   }

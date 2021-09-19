@@ -14,6 +14,8 @@ import {
   tokenWithdrawAmountChanged,
 } from '../../store/actions/wallet'
 
+import { ensureNotNaN } from '../../helpers'
+
 const BalanceForm = (props) => {
   return (
     <Tabs defaultActiveKey="deposit" className="bg-dark text-white">
@@ -47,7 +49,7 @@ const TabContent = ({
   return (
     <>
       <table className="table table-dark table-sm small">
-        <thead class="text-muted">
+        <thead className="text-muted">
           <tr>
             <th>Token</th>
             <th>Wallet</th>
@@ -57,13 +59,13 @@ const TabContent = ({
         <tbody>
           <tr>
             <td>ETH</td>
-            <td>{etherBalance}</td>
-            <td>{exchangeEtherBalance}</td>
+            <td>{ensureNotNaN(etherBalance)}</td>
+            <td>{ensureNotNaN(exchangeEtherBalance)}</td>
           </tr>
           <tr>
             <td>DAPP</td>
-            <td>{tokenBalance}</td>
-            <td>{exchangeTokenBalance}</td>
+            <td>{ensureNotNaN(tokenBalance)}</td>
+            <td>{ensureNotNaN(exchangeTokenBalance)}</td>
           </tr>
         </tbody>
       </table>
@@ -94,6 +96,7 @@ const TabContent = ({
             <input
               type="text"
               placeholder="Amount"
+              value={isDeposite ? etherDepositAmount : etherWithdrawAmount}
               onChange={(e) =>
                 isDeposite
                   ? dispatch(etherDepositAmountChanged(e.target.value))
@@ -149,6 +152,7 @@ const TabContent = ({
             <input
               type="text"
               placeholder="Amount"
+              value={isDeposite ? tokenDepositAmount : tokenWithdrawAmount}
               onChange={(e) =>
                 isDeposite
                   ? dispatch(tokenDepositAmountChanged(e.target.value))

@@ -1,6 +1,6 @@
 import { get, groupBy, reject } from 'lodash'
 import { createSelector } from 'reselect'
-import { ETHER_ADDRESS, GREEN, RED } from '../../helpers'
+import { ETHER_ADDRESS, GREEN, RED, roundDecimals } from '../../helpers'
 import { filledOrdersLoaded, filledOrders } from './trades'
 import { account, decorateOrder } from './base'
 
@@ -55,17 +55,37 @@ export const orderBookSelector = createSelector(openOrders, (orders) => {
   // Sort buy orders by token price
   orders = {
     ...orders,
-    buyOrders: buyOrders.sort((a, b) => b.tokenPrice - a.tokenPrice),
+    buyOrders: decorateAndSortOrdersWithSumAmount(buyOrders, true),
   }
   // Fetch sell orders
   const sellOrders = get(orders, 'sell', [])
   // Sort sell orders by token price
   orders = {
     ...orders,
-    sellOrders: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice),
+    sellOrders: decorateAndSortOrdersWithSumAmount(sellOrders, false),
   }
   return orders
 })
+
+const decorateAndSortOrdersWithSumAmount = (orders, isBuyOrders) => {
+  orders = isBuyOrders
+    ? orders.sort((a, b) => b.tokenPrice - a.tokenPrice)
+    : orders.sort((a, b) => a.tokenPrice - b.tokenPrice)
+  let prevOrder = orders[0]
+  orders = orders.map((order) => {
+    let newSumAmount =
+      order.id === prevOrder.id
+        ? order.etherAmount
+        : roundDecimals(order.etherAmount + prevOrder.sumAmount, 5)
+
+    order = { ...order, sumAmount: newSumAmount }
+    prevOrder = order
+    return order
+  })
+  return isBuyOrders
+    ? orders
+    : orders.sort((a, b) => b.tokenPrice - a.tokenPrice)
+}
 
 const decorateOrderBookOrders = (orders) =>
   orders.map((order) => {

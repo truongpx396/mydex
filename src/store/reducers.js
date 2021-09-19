@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 function web3(state = {}, action) {
   switch (action.type) {
     case 'WEB3_LOADED':
-      return { ...state,  connection: action.connection }
+      return { ...state, connection: action.connection }
     case 'WEB3_ACCOUNT_LOADED':
       return { ...state, account: action.account }
     case 'ETHER_BALANCE_LOADED':
@@ -31,9 +31,15 @@ function exchange(state = {}, action) {
     case 'EXCHANGE_LOADED':
       return { ...state, loaded: true, contract: action.contract }
     case 'CANCELLED_ORDERS_LOADED':
-      return { ...state, cancelledOrders: { loaded: true, data: action.cancelledOrders } }
+      return {
+        ...state,
+        cancelledOrders: { loaded: true, data: action.cancelledOrders },
+      }
     case 'FILLED_ORDERS_LOADED':
-      return { ...state, filledOrders: { loaded: true, data: action.filledOrders } }
+      return {
+        ...state,
+        filledOrders: { loaded: true, data: action.filledOrders },
+      }
     case 'ALL_ORDERS_LOADED':
       return { ...state, allOrders: { loaded: true, data: action.allOrders } }
     case 'ORDER_CANCELLING':
@@ -44,17 +50,16 @@ function exchange(state = {}, action) {
         orderCancelling: false,
         cancelledOrders: {
           ...state.cancelledOrders,
-          data: [
-            ...state.cancelledOrders.data,
-            action.order
-          ]
-        }
+          data: [...state.cancelledOrders.data, action.order],
+        },
       }
     case 'ORDER_FILLED':
       // Prevent duplicate orders
-      index = state.filledOrders.data.findIndex(order => order.id === action.order.id);
+      index = state.filledOrders.data.findIndex(
+        (order) => order.id === action.order.id,
+      )
 
-      if(index === -1) {
+      if (index === -1) {
         data = [...state.filledOrders.data, action.order]
       } else {
         data = state.filledOrders.data
@@ -65,8 +70,8 @@ function exchange(state = {}, action) {
         orderFilling: false,
         filledOrders: {
           ...state.filledOrders,
-          data
-        }
+          data,
+        },
       }
 
     case 'ORDER_FILLING':
@@ -79,7 +84,14 @@ function exchange(state = {}, action) {
     case 'BALANCES_LOADING':
       return { ...state, balancesLoading: true }
     case 'BALANCES_LOADED':
-      return { ...state, balancesLoading: false }
+      return {
+        ...state,
+        balancesLoading: false,
+        etherDepositAmount: null,
+        etherWithdrawAmount: null,
+        tokenDepositAmount: null,
+        tokenWithdrawAmoun: null,
+      }
     case 'ETHER_DEPOSIT_AMOUNT_CHANGED':
       return { ...state, etherDepositAmount: action.amount }
     case 'ETHER_WITHDRAW_AMOUNT_CHANGED':
@@ -90,17 +102,30 @@ function exchange(state = {}, action) {
       return { ...state, tokenWithdrawAmount: action.amount }
 
     case 'BUY_ORDER_AMOUNT_CHANGED':
-      return { ...state, buyOrder: { ...state.buyOrder, amount: action.amount } }
+      return {
+        ...state,
+        buyOrder: { ...state.buyOrder, amount: action.amount },
+      }
     case 'BUY_ORDER_PRICE_CHANGED':
       return { ...state, buyOrder: { ...state.buyOrder, price: action.price } }
     case 'BUY_ORDER_MAKING':
-      return { ...state, buyOrder: { ...state.buyOrder, amount: null, price: null, making: true } }
+      return {
+        ...state,
+        buyOrder: {
+          ...state.buyOrder,
+          amount: null,
+          price: null,
+          making: true,
+        },
+      }
 
     case 'ORDER_MADE':
       // Prevent duplicate orders
-      index = state.allOrders.data.findIndex(order => order.id === action.order.id);
+      index = state.allOrders.data.findIndex(
+        (order) => order.id === action.order.id,
+      )
 
-      if(index === -1) {
+      if (index === -1) {
         data = [...state.allOrders.data, action.order]
       } else {
         data = state.allOrders.data
@@ -110,24 +135,38 @@ function exchange(state = {}, action) {
         ...state,
         allOrders: {
           ...state.allOrders,
-          data
+          data,
         },
         buyOrder: {
           ...state.buyOrder,
-          making: false
+          making: false,
         },
         sellOrder: {
           ...state.sellOrder,
-          making: false
-        }
+          making: false,
+        },
       }
 
     case 'SELL_ORDER_AMOUNT_CHANGED':
-      return { ...state, sellOrder: { ...state.sellOrder, amount: action.amount } }
+      return {
+        ...state,
+        sellOrder: { ...state.sellOrder, amount: action.amount },
+      }
     case 'SELL_ORDER_PRICE_CHANGED':
-      return { ...state, sellOrder: { ...state.sellOrder, price: action.price } }
+      return {
+        ...state,
+        sellOrder: { ...state.sellOrder, price: action.price },
+      }
     case 'SELL_ORDER_MAKING':
-      return { ...state, sellOrder: { ...state.sellOrder, amount: null, price: null, making: true } }
+      return {
+        ...state,
+        sellOrder: {
+          ...state.sellOrder,
+          amount: null,
+          price: null,
+          making: true,
+        },
+      }
 
     default:
       return state
@@ -137,7 +176,7 @@ function exchange(state = {}, action) {
 const rootReducer = combineReducers({
   web3,
   token,
-  exchange
+  exchange,
 })
 
 export default rootReducer

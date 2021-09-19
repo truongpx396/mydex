@@ -68,8 +68,6 @@ const decorateMyFilledOrders = (orders, account) =>
   })
 
 const decorateMyFilledOrder = (order, account) => {
-  const myMadeOrder = order.user === account
-
   let orderType
   // if(myMadeOrder) {
   orderType = order.tokenGive === ETHER_ADDRESS ? 'sell' : 'buy'

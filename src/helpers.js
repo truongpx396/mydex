@@ -22,3 +22,15 @@ export const formatBalance = (balance) => {
 
   return balance
 }
+
+export const roundDecimals = (number, decimals) => {
+  const precision = 10 ** decimals
+  return Math.round(number * precision) / precision
+}
+
+export const ensureNotNull = (value, defaultValue = '') => {
+  return typeof value === undefined || value === null ? defaultValue : value
+}
+
+export const ensureNotNaN = (value, defaultValue = '-/-') =>
+  isNaN(value) ? defaultValue : value

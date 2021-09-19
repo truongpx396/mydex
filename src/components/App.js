@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import Navbar from './Navbar'
 import Content from './Content'
@@ -11,43 +11,36 @@ import {
 } from '../store/actions/base'
 import { contractsLoadedSelector } from '../store/selectors/base'
 
-class App extends Component {
-  componentWillMount() {
-    this.loadBlockchainData(this.props.dispatch)
-  }
-
-  async loadBlockchainData(dispatch) {
-    const web3 = await loadWeb3(dispatch)
-    const networkId = await web3.eth.net.getId()
-    await loadAccount(web3, dispatch)
-    const token = await loadToken(web3, networkId, dispatch)
-    if (!token) {
-      window.alert(
-        'Token smart contract not detected on the current network. Please select another network with Metamask.',
-      )
-      return
+const App = ({ dispatch, contractsLoaded }) => {
+  useEffect(() => {
+    const loadBlockchainData = async () => {
+      const web3 = await loadWeb3(dispatch)
+      const networkId = await web3.eth.net.getId()
+      await loadAccount(web3, dispatch)
+      const token = await loadToken(web3, networkId, dispatch)
+      if (!token) {
+        window.alert(
+          'Token smart contract not detected on the current network. Please select another network with Metamask.',
+        )
+        return
+      }
+      const exchange = await loadExchange(web3, networkId, dispatch)
+      if (!exchange) {
+        window.alert(
+          'Exchange smart contract not detected on the current network. Please select another network with Metamask.',
+        )
+        return
+      }
     }
-    const exchange = await loadExchange(web3, networkId, dispatch)
-    if (!exchange) {
-      window.alert(
-        'Exchange smart contract not detected on the current network. Please select another network with Metamask.',
-      )
-      return
-    }
-  }
+    loadBlockchainData()
+  }, [dispatch])
 
-  render() {
-    return (
-      <div>
-        <Navbar />
-        {this.props.contractsLoaded ? (
-          <Content />
-        ) : (
-          <div className="content"></div>
-        )}
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Navbar />
+      {contractsLoaded ? <Content /> : <div className="content"></div>}
+    </div>
+  )
 }
 
 function mapStateToProps(state) {

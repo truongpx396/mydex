@@ -21,14 +21,13 @@ import {
 } from '../../store/selectors/wallet'
 import BalanceForm from './BalanceForm'
 
-const Balance = (props) => {
+const Balance = ({ dispatch, web3, exchange, token, account, ...props }) => {
   useEffect(() => {
     const loadBlockchainData = async () => {
-      const { dispatch, web3, exchange, token, account } = props
       await loadBalances(dispatch, web3, exchange, token, account)
     }
     loadBlockchainData()
-  }, [])
+  }, [dispatch, web3, exchange, token, account])
 
   return (
     <div className="card bg-dark text-white">
@@ -36,7 +35,14 @@ const Balance = (props) => {
         Wallet {props.showForm ? null : <Spinner />}
       </div>
       <div className="card-body">
-        <BalanceForm {...props} />
+        <BalanceForm
+          dispatch={dispatch}
+          web3={web3}
+          exchange={exchange}
+          token={token}
+          account={account}
+          {...props}
+        />
       </div>
     </div>
   )
@@ -62,5 +68,9 @@ function mapStateToProps(state) {
     tokenWithdrawAmount: tokenWithdrawAmountSelector(state),
   }
 }
+
+// function mapDispatchToProps(dispatch) {
+//   return { dispatch: (p) => dispatch(p) }
+// }
 
 export default connect(mapStateToProps)(Balance)
