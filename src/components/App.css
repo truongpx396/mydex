@@ -65,16 +65,46 @@
   height: 50%
 }
 
+/* .vertical-split > div:first-child {
+  height: 60%
+}
+
+.vertical-split > div:last-child {
+  height: 40%
+} */
+
 .vertical-split > div:first-child {
   margin-bottom: 8px
 }
 
-.vertical-split:last-child > div:first-child {
+/* .vertical-split:last-child > div:first-child {
   height: 60%
 }
 
 .vertical-split:last-child > div:last-child {
   height: 40%
+} */
+
+.vertical-split2 {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-evenly;
+  flex-wrap: nowrap
+}
+
+
+
+.vertical-split2 > div:first-child {
+  height: 60%
+}
+
+.vertical-split2 > div:last-child {
+  height: 40%
+}
+
+.vertical-split2 > div:first-child {
+  margin-bottom: 8px
 }
 
 @media (max-width:992px) {
@@ -138,7 +168,7 @@
 
 .card-body .price-chart {
   height:100%;
-  padding-bottom: 60px;
+  padding-bottom: 40px;
 }
 
 .card-body .price-chart .price {

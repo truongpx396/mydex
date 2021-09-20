@@ -22,10 +22,10 @@ const showPriceChart = (priceChart) => {
   return (
     <div className="price-chart">
       <div className="price">
-        <h4>
+        <h6>
           DAPP/ETH &nbsp; {priceSymbol(priceChart.lastPriceChange)} &nbsp;{' '}
           {priceChart.lastPrice}
-        </h4>
+        </h6>
       </div>
       <Chart
         options={chartOptions}

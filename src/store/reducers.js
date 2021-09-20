@@ -90,7 +90,7 @@ function exchange(state = {}, action) {
         etherDepositAmount: null,
         etherWithdrawAmount: null,
         tokenDepositAmount: null,
-        tokenWithdrawAmoun: null,
+        tokenWithdrawAmount: null,
       }
     case 'ETHER_DEPOSIT_AMOUNT_CHANGED':
       return { ...state, etherDepositAmount: action.amount }

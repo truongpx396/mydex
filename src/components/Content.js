@@ -10,7 +10,7 @@ import { loadAllOrders } from '../store/actions/orderbook'
 import { subscribeToEvents } from '../store/events'
 import OrderBook from './OrderBook/OrderBook'
 import Trades from './Trades'
-import MyTransactions from './MyTransactions'
+import MyTransactions from './MyTransactions/MyTransactions'
 import PriceChart from './PriceChart'
 import Balance from './Wallet/Balance'
 import NewOrder from './NewOrder/NewOrder'
@@ -31,7 +31,7 @@ const Content = ({ dispatch, web3, token, exchange, account }) => {
         <NewOrder />
       </div>
       <OrderBook />
-      <div className="vertical-split">
+      <div className="vertical-split2">
         <PriceChart />
         <MyTransactions />
       </div>
