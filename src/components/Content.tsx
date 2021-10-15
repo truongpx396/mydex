@@ -14,8 +14,19 @@ import MyTransactions from './MyTransactions/MyTransactions'
 import PriceChart from './PriceChart'
 import Balance from './Wallet/Balance'
 import NewOrder from './NewOrder/NewOrder'
+import { Dispatch } from 'redux'
+import Web3 from 'web3'
+import { Contract } from 'web3-eth-contract';
 
-const Content = ({ dispatch, web3, token, exchange, account }) => {
+interface ContentArgs{
+  dispatch:Dispatch,
+  web3:Web3,
+  token:Contract,
+  exchange:Contract,
+  account:String
+}
+
+const Content = ({ dispatch, web3, token, exchange, account }:ContentArgs) => {
   useEffect(() => {
     const loadBlockchainData = async () => {
       await loadAllOrders(exchange, dispatch)

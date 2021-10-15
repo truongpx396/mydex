@@ -9,6 +9,7 @@ import {
   tokens,
   roundDecimals,
 } from '../../helpers'
+import Web3 from 'web3'
 
 // TODO: Move me to helpers file
 
