@@ -1,5 +1,5 @@
 import { Action, combineReducers } from 'redux'
-import { createSlice, PayloadAction ,createAsyncThunk} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction ,createAsyncThunk,createSelector} from '@reduxjs/toolkit'
 import Web3 from 'web3'
 import  { RootState,AppThunk } from '../configureStore'
 import { Contract } from 'web3-eth-contract';
@@ -9,6 +9,7 @@ import { ETHER_ADDRESS } from '../../helpers'
 import {etherBalanceLoaded} from './web3Reducer' 
 import {tokenBalanceLoaded} from './tokenReducer'
 import BN from 'bn.js'
+import { formatBalance, ensureNotNull } from '../../helpers'
 
 // function wallet(state = {}, action) {
 //   let index, data
@@ -112,16 +113,36 @@ interface WalletState {
   export const exchangeEtherBalanceSelector = (state: RootState) => state.wallet.etherBalance
   export const exchangeTokenBalanceSelector = (state: RootState) => state.wallet.tokenBalance
   export const balancesLoadingSelector = (state: RootState) => state.wallet.balancesLoading
-  export const etherDepositAmountSelector = (state: RootState) => state.wallet.etherDepositAmount
-  export const etherWithdrawAmountSelector = (state: RootState) => state.wallet.etherWithdrawAmount
-  export const tokenDepositAmountSelector = (state: RootState) => state.wallet.tokenDepositAmount
-  export const tokenWithdrawBalanceSelector = (state: RootState) => state.wallet.tokenWithdrawAmount
+  export const etherDepositAmount = (state: RootState) => state.wallet.etherDepositAmount
+  export const etherWithdrawAmount = (state: RootState) => state.wallet.etherWithdrawAmount
+  export const tokenDepositAmount = (state: RootState) => state.wallet.tokenDepositAmount
+  export const tokenWithdrawAmount = (state: RootState) => state.wallet.tokenWithdrawAmount
+
+
+export const etherDepositAmountSelector = createSelector(
+  etherDepositAmount,
+  (amount) => ensureNotNull(amount),
+)
+
+export const etherWithdrawAmountSelector = createSelector(
+  etherWithdrawAmount,
+  (amount) => ensureNotNull(amount),
+)
+
+export const tokenDepositAmountSelector = createSelector(
+  tokenDepositAmount,
+  (amount) => ensureNotNull(amount),
+)
+
+export const tokenWithdrawAmountSelector = createSelector(
+  tokenWithdrawAmount,
+  (amount) => ensureNotNull(amount),
+)
+
   
+const walletReducer=walletSlice.reducer
 
-  const walletReducer=walletSlice.reducer
-
-  export default walletReducer
-
+export default walletReducer
 
 
  export const loadBalances = (web3 :Web3,

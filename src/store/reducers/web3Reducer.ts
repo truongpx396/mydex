@@ -1,7 +1,8 @@
 import { Action, combineReducers } from 'redux'
-import { createSlice, PayloadAction ,createAsyncThunk} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction ,createAsyncThunk,createSelector} from '@reduxjs/toolkit'
 import Web3 from 'web3'
 import  { RootState,AppThunk } from '../configureStore'
+import { formatBalance, ensureNotNull } from '../../helpers'
 
 // function web3(state = {}, action :Action) {
 //   switch (action.type) {
@@ -108,6 +109,12 @@ export const { web3Loaded, web3AccountLoaded, etherBalanceLoaded } = web3Slice.a
 
 // Other code such as selectors can use the imported `RootState` type
 export const web3Selector = (state: RootState) => state.web3.connection
+
+const etherBalance=(state:RootState) => state.web3.balance
+
+export const etherBalanceSelector = createSelector(etherBalance, (balance) => {
+  return ensureNotNull(formatBalance(balance))
+})
 
 export const accountSelector = (state: RootState) => state.web3.account
 

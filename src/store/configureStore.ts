@@ -3,12 +3,21 @@ import { createLogger } from 'redux-logger'
 import web3Reducer from './reducers/web3Reducer'
 import tokenReducer from './reducers/tokenReducer'
 import exchangeReducer from './reducers/exchangeReducer'
-import { cancelledOrdersReducer,filledOrdersReducer,allOrdersReducer } from './reducers/orderBookReducer'
+import { allOrdersReducer } from './reducers/allOrdersReducer'
+import { cancelledOrdersReducer } from './reducers/cancelledOrdersReducer'
+import { filledOrdersReducer } from './reducers/filledOrdersReducer'
 import walletReducer from './reducers/walletReducer'
 import { configureStore,ThunkAction, Action  } from '@reduxjs/toolkit'
 
 export const getKeyValue = <T extends object, U extends keyof T>(obj: T) => (key: U) =>
   obj[key];
+
+  declare global {
+    interface Window {
+      ethereum:any;
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :any;
+    }
+}
 
 const loggerMiddleware = createLogger()
 const middleware:any[] = []
