@@ -47,9 +47,9 @@ export const fillOrder = ( exchange :Contract, order:OrderBook, account:string):
       orderFilling:(state)=>{
         state.orderfilling=true
       },
-      orderFillled:(state)=>{
+      orderFilled:(state,action:PayloadAction<OrderBook>)=>{
         state.orderfilling=false
-        filledOrdersAdapter.addOne
+        filledOrdersAdapter.addOne(state,action.payload)
       },
       filledOrdersLoaded:(state,action: PayloadAction<OrderBook[]>)=>{
         state.loaded=true
@@ -58,7 +58,7 @@ export const fillOrder = ( exchange :Contract, order:OrderBook, account:string):
     },
   })
   
-  export const { orderFilling, orderFillled,filledOrdersLoaded } = filledOrdersSlice.actions
+  export const { orderFilling, orderFilled,filledOrdersLoaded } = filledOrdersSlice.actions
   
   export const {
     selectById: selectFilledOrderById,

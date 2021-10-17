@@ -91,7 +91,7 @@ import BN from 'bn.js'
 // }
 
 
-  export const loadExchange = (networkId:any): AppThunk => async(
+  export const loadExchange = (networkId:any): AppThunk<Promise<Contract | undefined>> => async(
     dispatch,
     getState
   ) => {
@@ -107,7 +107,7 @@ import BN from 'bn.js'
         console.log(
           'Contract not deployed to the current network. Please select another network with Metamask.',
         )
-        return null
+        return undefined
       }
   };
   
@@ -179,7 +179,7 @@ interface ExchangeState {
       }
     },
     extraReducers: (builder) => {
-      builder
+      //builder
         // .addCase(incrementAsync.pending, (state) => {
         //   state.status = 'loading';
         // })

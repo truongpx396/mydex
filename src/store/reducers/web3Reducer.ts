@@ -29,7 +29,7 @@ import { formatBalance, ensureNotNull } from '../../helpers'
 //   }
 // }
 
-export const loadWeb3 = (): AppThunk => async(
+export const loadWeb3 = (): AppThunk<Promise<Web3|undefined>> => async(
   dispatch,
   getState
 ) => {
@@ -94,7 +94,7 @@ export const web3Slice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder
+    //builder
       // .addCase(incrementAsync.pending, (state) => {
       //   state.status = 'loading';
       // })

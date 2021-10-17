@@ -128,9 +128,9 @@ export const cancelledOrdersSlice = createSlice({
     orderCancelling:(state)=>{
       state.orderCancelling=true
     },
-    orderCancelled:(state)=>{
+    orderCancelled:(state,action:PayloadAction<OrderBook>)=>{
       state.orderCancelling=false
-      cancelledOrdersAdapter.addOne
+      cancelledOrdersAdapter.addOne(state,action.payload)
     },
     cancelledOrdersLoaded:(state,action: PayloadAction<OrderBook[]>)=>{
       state.loaded=true

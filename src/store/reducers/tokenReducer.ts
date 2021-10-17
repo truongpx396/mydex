@@ -34,7 +34,7 @@ import { formatBalance, ensureNotNull } from '../../helpers'
 //     }
 //   }
 
-  export const loadToken = (networkId:any): AppThunk => async(
+  export const loadToken = (networkId:any): AppThunk<Promise<Contract|undefined>> => async(
     dispatch,
     getState
   ) => {
@@ -80,7 +80,7 @@ interface TokenState {
       },
     },
     extraReducers: (builder) => {
-      builder
+      //builder
         // .addCase(incrementAsync.pending, (state) => {
         //   state.status = 'loading';
         // })
